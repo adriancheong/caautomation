@@ -2,40 +2,157 @@
     ViewData["Title"] = "Home Page";
 }
 
+<style>
+    .negative {
+        color: red
+    }
+
+    .positive {
+        color: green
+    }
+</style>
+
 <div><h1>
     <span>Current Price: </span>
-    <span id="currPrice">1.05</span>
+    <span id="currPrice"></span>
 </h1></div>
 
+
 <div class="form-group row">
-    <label for="example-number-input" class="col-2 col-form-label">My Strike Price</label>
+    <label for="myPrice" class="col-2 col-form-label">Reinvt Price</label>
     <div class="col-10">
-        <input id="myPrice" class="form-control" type="number" value="1.10">
+        <input id="myPrice" class="form-control" type="number" value="1.07">
     </div>
 </div>
 
+<div class="jumbotron">
+    <h2><span id="status"></span><span id="va"></span></h2>
+</div>
+
+
+<div id="notify" class="jumbotron" hidden>
+    <h1>Notification Sent!</h1>
+</div>
 <div id="execute" class="jumbotron" hidden>
     <h1>CA EXECUTED!</h1>
 </div>
 
 <script>
-    var currPrice = 1.05;
+    var prices = [
+1.01,
+1.02,
+1.03,
+1.04,
+1.05,
+1.06,
+1.07,
+1.08,
+1.09,
+1.1,
+1.11,
+1.12,
+1.13,
+1.14,
+1.15,
+1.16,
+1.17,
+1.18,
+1.19,
+1.2,
+1.19,
+1.18,
+1.17,
+1.16,
+1.15,
+1.14,
+1.13,
+1.12,
+1.11,
+1.1,
+1.09,
+1.08,
+1.07,
+1.06,
+1.05
+    ];
+
+    var priceIndex = 0;
+    var currPrice = 1.00;
     var speed = 1000;
+    var notified = false;
+
     function go() {
         $("#currPrice").text(Math.round(currPrice * 100) / 100);
         var myPrice = $("#myPrice").val();
-        if (currPrice >= myPrice)
-            $("#execute").removeAttr('hidden');
-        else {
-            //var randomPersonIndex = Math.floor(Math.random() * allStaff.length);
-            currPrice = getCurrPrice();
-            setTimeout(go, speed);
+        var notifyPrice = $("#notifyPrice").val();
+
+        //if (currPrice >= notifyPrice && !notified) {
+        //    Notify();
+        //    $("#notify").removeAttr('hidden');
+        //    notified = true;
+        //}
+        
+        var va = Math.round((currPrice - myPrice) * 100) / 100;
+        if (va > 0) {
+            $("#status").text("Select Stock. ");
+            $("#va").text("VA " + va.toString());
+            $("#va").removeClass("negative");
+            $("#va").addClass("positive");
         }
+        else {
+            $("#status").text("Select Cash. ");
+            $("#va").text("VA " + va.toString());
+            $("#va").removeClass("positive");
+            $("#va").addClass("negative");
+        }
+
+
+        //var randomPersonIndex = Math.floor(Math.random() * allStaff.length);
+        currPrice = getCurrPrice();
+        setTimeout(go, speed);        
     }
 
     getCurrPrice = function () {
-        return currPrice + 0.01;
+        if (priceIndex >= prices.length)
+            priceIndex = 0;
+        return prices[priceIndex++];
     };
+
+
+    function processData(allText) {
+        var record_num = 5;  // or however many elements there are in each row
+        var allTextLines = allText.split(/\r\n|\n/);
+        var entries = allTextLines[0].split(',');
+        var lines = [];
+
+        var headings = entries.splice(0, record_num);
+        while (entries.length > 0) {
+            var tarr = [];
+            for (var j = 0; j < record_num; j++) {
+                tarr.push(headings[j] + ":" + entries.shift());
+            }
+            lines.push(tarr);
+        }
+        // alert(lines);
+    }
+
+    function Notify() {
+        var url = "/Notify";
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: url,
+            success: function (ret) {
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            },
+            complete: function () {
+            }
+        });
+    };
+
 
     $(function () {
         go();
