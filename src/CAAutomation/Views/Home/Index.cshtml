@@ -28,6 +28,9 @@
                 <p id="p2"></p>
                 <p id="p3"></p>
                 <p id="p4"></p>
+                <p id="p5"></p>
+                <p id="p6"></p>
+                <p id="p7"></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -58,7 +61,7 @@
 <div class="form-group row">
     <label for="myPrice" class="col-2 col-form-label">Reinvt Price</label>
     <div class="col-10">
-        <input id="myPrice" class="form-control" type="number" value="1.05">
+        <input id="myPrice" class="form-control" type="number" value="10.00">
     </div>
 </div>
 
@@ -76,49 +79,51 @@
 
 <script>
     var prices = [
-1.01,
-1.02,
-1.03,
-1.04,
-1.05,
-1.06,
-1.07,
-1.08,
-1.09,
-1.1,
-1.11,
-1.12,
-1.13,
-1.14,
-1.15,
-1.16,
-1.17,
-1.18,
-1.19,
-1.2,
-1.19,
-1.18,
-1.17,
-1.16,
-1.15,
-1.14,
-1.13,
-1.12,
-1.11,
-1.1,
-1.09,
-1.08,
-1.07,
-1.06,
-1.05
+10.1,
+10.2,
+10.3,
+10.4,
+10.5,
+10.6,
+10.7,
+10.8,
+10.9,
+11,
+11.1,
+11.2,
+11.3,
+11.4,
+11.5,
+11.6,
+11.7,
+11.8,
+11.9,
+12,
+12.1,
+12.2,
+12.3,
+12.4,
+12.5,
+12.6,
+12.7,
+12.8,
+12.9,
+13,
+13.1,
+13.2,
+13.3,
+13.4,
+13.5
     ];
 
     var priceIndex = 0;
-    var currPrice = 1.00;
+    var currPrice = 10.00;
+    var reinvtPrice = $("#myPrice").val();
     var speed = 1000;
     var notified = false;
     var timeLeft = 10;
     var noOfShares = 10000000;
+    var cashPrice = 0.5;
 
     function go() {
         $("#currPrice").text(Math.round(currPrice * 100) / 100);
@@ -154,10 +159,16 @@
         if (timeLeft < 0) {
 
             if (va > 0) {
-                $("#p1").text("Order executed to purchase stock");
-                $("#p2").text("Done @@ " + currPrice.toString());
-                $("#p3").text("No. of shares: " + noOfShares.toString());
-                $("#p4").text("VA Generated: " + (va * noOfShares).toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 }));
+                var cash = cashPrice * noOfShares;
+                var realised = cash / reinvtPrice * currPrice;
+
+                $("#p1").text("CA instruction to elect 100% stock sent to bank");
+                $("#p2").text("Order executed to sell stock");
+                $("#p3").text("Done @@ " + currPrice.toString());
+                $("#p4").text("No. of shares: " + noOfShares.toString());
+                $("#p5").text("Realized sales proceeds " + (realised).toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 }));
+                $("#p6").text("Amount if opted for cash: " + (cash).toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 }));
+                $("#p7").text("VA Generated: " + (realised - cash).toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 }));
             }
 
             $("#results").modal();
