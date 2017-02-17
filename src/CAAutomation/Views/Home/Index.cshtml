@@ -12,16 +12,53 @@
     }
 </style>
 
-<div><h1>
-    <span>Current Price: </span>
-    <span id="currPrice"></span>
-</h1></div>
+
+
+<div id="results" class="modal fade">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Corporate Action Elected</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="modalBody" class="modal-body">
+                <p id="p1">Order Executed. Cash Selected.</p>
+                <p id="p2"></p>
+                <p id="p3"></p>
+                <p id="p4"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div>
+    <div class="col-xs-6">
+        <h1>
+            <span>Current Price: </span>
+            <span id="currPrice"></span>
+        </h1>
+    </div>
+    <div class="col-xs-6">
+        <h1>
+            <span>Time Left: </span>
+            <span id="timeLeft"></span>
+        </h1>
+    </div>
+</div>
 
 
 <div class="form-group row">
     <label for="myPrice" class="col-2 col-form-label">Reinvt Price</label>
     <div class="col-10">
-        <input id="myPrice" class="form-control" type="number" value="1.07">
+        <input id="myPrice" class="form-control" type="number" value="1.05">
     </div>
 </div>
 
@@ -80,9 +117,12 @@
     var currPrice = 1.00;
     var speed = 1000;
     var notified = false;
+    var timeLeft = 10;
+    var noOfShares = 10000000;
 
     function go() {
         $("#currPrice").text(Math.round(currPrice * 100) / 100);
+        $("#timeLeft").text(timeLeft);
         var myPrice = $("#myPrice").val();
         var notifyPrice = $("#notifyPrice").val();
 
@@ -109,6 +149,21 @@
 
         //var randomPersonIndex = Math.floor(Math.random() * allStaff.length);
         currPrice = getCurrPrice();
+        timeLeft--;
+
+        if (timeLeft < 0) {
+
+            if (va > 0) {
+                $("#p1").text("Order executed to purchase stock");
+                $("#p2").text("Done @@ " + currPrice.toString());
+                $("#p3").text("No. of shares: " + noOfShares.toString());
+                $("#p4").text("VA Generated: " + (va * noOfShares).toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 }));
+            }
+
+            $("#results").modal();
+            return;
+        }
+
         setTimeout(go, speed);        
     }
 
