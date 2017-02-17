@@ -127,6 +127,9 @@
     var cashPrice = 0.5;
 
     function go() {
+
+        currPrice = getCurrPrice();
+
         $("#currPrice").text(Math.round(currPrice * 100) / 100);
         $("#timeLeft").text(timeLeft);
         var myPrice = $("#myPrice").val();
@@ -154,7 +157,6 @@
 
 
         //var randomPersonIndex = Math.floor(Math.random() * allStaff.length);
-        currPrice = getCurrPrice();
         timeLeft--;
 
         if (timeLeft < 0) {
