@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:1.0.3-runtime
+FROM microsoft/dotnet:1.0.3-sdk-projectjson
 ENV name CAAutomation
 ENV buildconfig Release
 COPY src/$name /root/$name
