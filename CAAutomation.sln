@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{780097C0-B73
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{40A77AFE-2605-4547-9A6E-6B6A85F4A2C6}"
 	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
 		global.json = global.json
 	EndProjectSection
 EndProject
@@ -16,12 +17,15 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Release2|Any CPU = Release2|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{984A630F-C0A1-4A7D-A8E6-D070C24DA818}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{984A630F-C0A1-4A7D-A8E6-D070C24DA818}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{984A630F-C0A1-4A7D-A8E6-D070C24DA818}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{984A630F-C0A1-4A7D-A8E6-D070C24DA818}.Release|Any CPU.Build.0 = Release|Any CPU
+		{984A630F-C0A1-4A7D-A8E6-D070C24DA818}.Release2|Any CPU.ActiveCfg = Release2|Any CPU
+		{984A630F-C0A1-4A7D-A8E6-D070C24DA818}.Release2|Any CPU.Build.0 = Release2|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
