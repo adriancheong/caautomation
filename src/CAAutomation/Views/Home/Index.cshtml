@@ -69,7 +69,22 @@
 </div>
 
 <div class="jumbotron">
-    <h2><span id="status"></span><span id="statusValue"></span><span id="va"></span></h2>
+    <div class="row">
+        <div class="col-xs-2">
+            <h2><span id="status">Election:</span></h2>
+        </div>
+        <div class="col-xs-6">
+            <h2><span id="statusValue"></span></h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">
+            <h2><span>VA:</span></h2>
+        </div>
+        <div class="col-xs-6">
+            <h2><span id="va"></span></h2>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -143,16 +158,14 @@
         
         var va = Math.round((currPrice - myPrice) * 100) / 100;
         if (va > 0) {
-            $("#status").text("Election choice: ");
             $("#statusValue").text("Stock");
-            $("#va").text("VA " + va.toString());
+            $("#va").text("+" + va.toString());
             $("#va").removeClass("negative");
             $("#va").addClass("positive");
         }
         else {
-            $("#status").text("Election choice: ");
             $("#statusValue").text("Cash");
-            $("#va").text("VA " + va.toString());
+            $("#va").text(va.toString());
             $("#va").removeClass("positive");
             $("#va").addClass("negative");
         }
