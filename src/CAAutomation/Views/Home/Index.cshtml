@@ -42,47 +42,48 @@
 
 
 
-<div>
-    <div class="col-xs-8">
+<div class="row">
+    <div class="col-xs-6">
         <div id="chartContainer" style="height: 300px; width:100%;">
         </div>
     </div>
-    <div class="col-xs-4">
-        <h1>
-            <span>Current Price: </span>
-            <span id="currPrice"></span>
-        </h1>
-        <h2>
-            <span>Time Left: </span>
-            <span id="timeLeft"></span>
-            <span> Seconds</span>
-        </h2>
+    <div class="col-xs-6">
+        <div class="row">
+            <h1>
+                <span>Current Price: </span>
+                <span id="currPrice"></span>
+            </h1>
+            <h2>
+                <span>Time Left: </span>
+                <span id="timeLeft"></span>
+                <span> Seconds</span>
+            </h2>
+            <h3>
+                <span>Reinvt Price: </span>
+                <span>10.00</span>
+            </h3>
+        </div>
     </div>
 </div>
 
 
-<div class="form-group row">
-    <label for="myPrice" class="col-2 col-form-label">Reinvt Price</label>
-    <div class="col-10">
-        <input id="myPrice" class="form-control" type="number" value="10.00">
-    </div>
-</div>
-
-<div class="jumbotron">
-    <div class="row">
-        <div class="col-xs-2">
-            <h2><span id="status">Election:</span></h2>
+<div class="row">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-xs-6 col-sm-3 col-lg-2">
+                <h2><span id="status">Election:</span></h2>
+            </div>
+            <div class="col-xs-6 col-sm-9 col-lg-10">
+                <h2><span id="statusValue"></span></h2>
+            </div>
         </div>
-        <div class="col-xs-6">
-            <h2><span id="statusValue"></span></h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-2">
-            <h2><span>VA:</span></h2>
-        </div>
-        <div class="col-xs-6">
-            <h2><span id="va"></span></h2>
+        <div class="row">
+            <div class="col-xs-6 col-sm-3 col-lg-2">
+                <h2><span>VA:</span></h2>
+            </div>
+            <div class="col-xs-6 col-sm-9 col-lg-10">
+                <h2><span id="va"></span></h2>
+            </div>
         </div>
     </div>
 </div>
@@ -134,20 +135,19 @@
 
     var priceIndex = 0;
     var currPrice = 10.00;
-    var reinvtPrice = $("#myPrice").val();
+    var reinvtPrice = 10.00;
     var speed = 1000;
     var notified = false;
     var timeLeft = 16;
     var noOfShares = 10000000;
     var cashPrice = 0.5;
-
+    
     function go() {
 
         currPrice = getCurrPrice();
 
         $("#currPrice").text(Math.round(currPrice * 100) / 100);
         $("#timeLeft").text(timeLeft);
-        var myPrice = $("#myPrice").val();
         var notifyPrice = $("#notifyPrice").val();
 
         //if (currPrice >= notifyPrice && !notified) {
@@ -156,7 +156,7 @@
         //    notified = true;
         //}
         
-        var va = Math.round((currPrice - myPrice) * 100) / 100;
+        var va = Math.round((currPrice - reinvtPrice) * 100) / 100;
         if (va > 0) {
             $("#statusValue").text("Stock");
             $("#va").text("+" + va.toString());
